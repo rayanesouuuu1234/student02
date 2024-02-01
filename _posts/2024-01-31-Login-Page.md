@@ -1,6 +1,4 @@
-# Signup Form
-
-Please fill in this form to create an account.
+## Signup
 
 <form id="signupForm">
     <label for="username">Username (UID):</label>
@@ -12,9 +10,7 @@ Please fill in this form to create an account.
     <button type="submit">Create Account</button>
 </form>
 
-# Login Form
-
-Please use this form to log in.
+## Login Form
 
 <form id="loginForm">
     <label for="loginUsername">Username:</label>

@@ -10,7 +10,7 @@
     <button type="submit">Create Account</button>
 </form>
 
-## Login Form
+## Login 
 
 <form id="loginForm">
     <label for="loginUsername">Username:</label>

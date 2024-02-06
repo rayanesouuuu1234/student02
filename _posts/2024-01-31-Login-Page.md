@@ -119,9 +119,8 @@
         // Implement login functionality here
 
         alert('Login successful! Redirecting...');
-        window.location.href = 'log.html';
+        window.location.href = 'game.html';
         // Redirect to another page on success
-        // window.location.href = 'home.html';
     });
 
     document.getElementById('goToSignup').addEventListener('click', function() {

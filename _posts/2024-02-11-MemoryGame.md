@@ -1,34 +1,28 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Matching Game</title>
-    <link rel="shortcut icon" type="image/png" href="Images/favicon.PNG"/>
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Biryani:wght@800&display=swap');
-    /* Your CSS goes here */
-    /* ... rest of CSS ... */
-    </style>
+
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emoji Memory Game</title>
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #f0f0f0;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .hidden {
+    background-color: #9e9e9e;
+  }
+</style>
 </head>
 <body>
-    <div id="ol"> </div>
-    <div style="height: 8px;"></div>
-    <div id="title">
-        <span id="logo">MEMORY MATCHING GAME</span>
-    </div>
-    <div id="gameInfo" style="height: 40px;">
-        <span id="moves"></span>
-        <span id="time"></span>
-    </div>
-    <center>
-        <table cellspacing="0"></table>
-    </center>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script>
-    // Your JavaScript goes here
-    /* ... rest of JavaScript ... */
-    </script>
-</body>
-</html>

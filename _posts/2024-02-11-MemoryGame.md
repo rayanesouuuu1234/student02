@@ -26,3 +26,75 @@
 </style>
 </head>
 <body>
+<div id="game" class="grid"></div>
+
+<script>
+const emojis = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰'];
+let selectedEmojis = emojis.slice(0, 8); // Use only 8 emojis for 16 cards
+selectedEmojis = [...selectedEmojis, ...selectedEmojis]; // Duplicate emojis for pairs
+selectedEmojis.sort(() => 0.5 - Math.random()); // Shuffle the emojis
+
+const game = document.getElementById('game');
+let hasFlippedCard = false;
+let lockBoard = false;
+let firstCard, secondCard;
+
+function createBoard() {
+  for (let i = 0; i < 16; i++) {
+    const card = document.createElement('div');
+    card.classList.add('card', 'hidden');
+    card.setAttribute('data-emoji', selectedEmojis[i]);
+    card.addEventListener('click', flipCard);
+    game.appendChild(card);
+  }
+}
+
+function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
+
+  this.classList.remove('hidden');
+  this.innerHTML = this.getAttribute('data-emoji');
+
+  if (!hasFlippedCard) {
+    hasFlippedCard = true;
+    firstCard = this;
+    return;
+  }
+
+  secondCard = this;
+  checkForMatch();
+}
+
+function checkForMatch() {
+  const isMatch = firstCard.getAttribute('data-emoji') === secondCard.getAttribute('data-emoji');
+  isMatch ? disableCards() : unflipCards();
+}
+
+function disableCards() {
+  firstCard.removeEventListener('click', flipCard);
+  secondCard.removeEventListener('click', flipCard);
+  resetBoard();
+}
+
+function unflipCards() {
+  lockBoard = true;
+
+  setTimeout(() => {
+    firstCard.classList.add('hidden');
+    secondCard.classList.add('hidden');
+    firstCard.innerHTML = '';
+    secondCard.innerHTML = '';
+    resetBoard();
+  }, 1500);
+}
+
+function resetBoard() {
+  [hasFlippedCard, lockBoard] = [false, false];
+  [firstCard, secondCard] = [null, null];
+}
+
+createBoard();
+</script>
+</body>
+</html>

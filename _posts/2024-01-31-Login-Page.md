@@ -15,7 +15,6 @@
             background: #000; /* Changed to black */
             color: #fff; /* Adjusted for contrast */
         }
-
         .form-container {
             background: #222; /* Darker background for the form */
             padding: 20px 40px; /* Adjusted padding for sleekness */
@@ -113,19 +112,21 @@
 </div>
 
 <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
 
-        // Implement login functionality here
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
 
+    // Check if the username and password match the hardcoded credentials
+    if (username === "toby" && password === "123toby") {
         alert('Login successful! Redirecting...');
-        window.location.href = 'game.html';
-        // Redirect to another page on success
-    });
-
-    document.getElementById('goToSignup').addEventListener('click', function() {
-        window.location.href = 'signup.html'; // Replace 'signup.html' with your signup page URL
-    });
+        window.location.href = 'game.html'; // Redirect to another page on success
+    } else {
+        // If the credentials don't match, display an error message
+        alert('Error logging in: Invalid username or password.');
+    }
+});
 </script>
 
 </body>

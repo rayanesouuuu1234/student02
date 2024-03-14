@@ -49,14 +49,10 @@ Following these movements, the code segment moves the robot forward one square.H
 
 Correct answer: C
 
-Answer A
-Incorrect. This code segment assigns the value of the last element of the list to the variable temp, then removes the last element of the list, then appends temp to the end of the list. The resulting list is the same as the original list.
+Answer A: This code segment is incorrect because it performs the following steps: it assigns the value of the last element of the list to a variable called "temp," then removes the last element from the list, and finally appends the value of "temp" to the end of the list. As a result, the modified list remains the same as the original list.
 
-Answer B
-Incorrect. This code segment removes the last element of the list, then attempts to access an element at index len. This causes an error because there is no longer an element at index len.
+Answer B: This code segment is incorrect as it removes the last element of the list and then tries to access an element at an index equal to the length of the list. This action leads to an error because there is no longer an element at that index.
 
-Answer C
-Correct. This code segment assigns the value of the last element of the list to the variable temp, then removes the last element of the list, then inserts temp as the first element of the list.
+Answer C: This code segment is correct. It functions as follows: it assigns the value of the last element of the list to a variable named "temp," removes the last element from the list, and then inserts the value of "temp" as the first element of the list.
 
-Answer D
-Incorrect. This code segment removes the last element of the list, then attempts to access an element at index len. This causes an error because there is no longer an element at index len.
+Answer D: This code segment is incorrect because it removes the last element of the list and then attempts to access an element at an index equal to the length of the list. This results in an error because there is no longer an element at that index.

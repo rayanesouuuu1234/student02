@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,63 +55,122 @@
 </body>
 </html>
 
-body {
-    font-family: 'Arial', sans-serif;
+<style>
+/* Reset default browser styles */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+}
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
 }
 
 header {
-    background-color: #333;
-    color: white;
-    padding: 15px 0;
+    background-color: #1F1F1F;
+    padding: 20px 0;
     text-align: center;
+    width: 100%;
+    box-shadow: 0 2px 10px 0 rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #0d6efd;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 main {
-    width: 80%;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100% - 60px);
+    padding: 40px 0;
 }
 
 form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
+    margin: 30px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #252525;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-form label {
-    text-align: right;
-    margin-right: 10px;
-}
-
-form input, form select, form button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
+input, select, button {
+    width: 300px;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
 }
 
-form button {
-    background-color: #4CAF50;
-    color: white;
+input[type='number'], select {
+    background-color: #333;
+    color: #ddd;
+}
+
+input[type='number']:focus, select:focus {
+    outline: none;
+    border: 2px solid #0d6efd;
+}
+
+button {
+    background-color: #0d6efd;
+    color: #fff;
+    font-size: 1rem;
+    letter-spacing: 1px;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.5);
+}
+
+button:active {
+    transform: translateY(-1px);
 }
 
 #prediction-result {
-    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px 0 rgba(255, 255, 255, 0.1);
+}
+
+#predicted-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4CAF50;
 }
 
 footer {
+    background-color: #1F1F1F;
+    color: #8c8c8c;
     text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: white;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}

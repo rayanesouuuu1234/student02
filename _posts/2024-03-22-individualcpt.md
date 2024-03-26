@@ -1,176 +1,137 @@
+---
+toc: true
+comments: true
+layout: post
+title: NBA Player Performance Prediction
+description: Predict the scoring performance of NBA players
+type: hacks
+courses: { compsci: {week: 26} }
+---
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Used Car Price Predictor</title>
-    <link rel="stylesheet" href="style.css">
+<title>NBA Player Performance Prediction</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #212121;
+  color: #fff;
+}
+.container {
+  width: 50%;
+  margin: 20px auto;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+h2 {
+  text-align: center;
+}
+form {
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input[type="text"],
+input[type="number"],
+select {
+  width: calc(100% - 18px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+}
+select {
+  appearance: none;
+}
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+button:hover {
+  background-color: #45a049;
+}
+#result {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>Used Car Price Predictor</h1>
-    </header>
-    <main>
-        <form id="price-prediction-form">
-            <label for="year">Year:</label>
-            <input type="number" id="year" name="year" min="1990" max="2022" required>
 
-            <label for="km_driven">Kilometers Driven:</label>
-            <input type="number" id="km_driven" name="km_driven" required>
+<h2>NBA Player Performance Prediction</h2>
 
-            <label for="fuel">Fuel Type:</label>
-            <select id="fuel" name="fuel" required>
-                <option value="Petrol">Petrol</option>
-                <option value="Diesel">Diesel</option>
-                <option value="CNG">CNG</option>
-                <option value="LPG">LPG</option>
-                <option value="Electric">Electric</option>
-            </select>
+<div class="container">
+  <form id="predictionForm">
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="18" max="40" required>
+    <label for="FG">Field Goals:</label>
+    <input type="number" id="FG" name="FG" min="0" required>
+    <label for="FG%">Field Goal Percentage:</label>
+    <input type="number" id="FG%" name="FG%" step="0.1" min="0" max="100" required>
+    <label for="3P">Three-Point Field Goals:</label>
+    <input type="number" id="3P" name="3P" min="0" required>
+    <label for="3P%">Three-Point Percentage:</label>
+    <input type="number" id="3P%" name="3P%" step="0.1" min="0" max="100" required>
+    <label for="FT">Free Throws:</label>
+    <input type="number" id="FT" name="FT" min="0" required>
+    <label for="FT%">Free Throw Percentage:</label>
+    <input type="number" id="FT%" name="FT%" step="0.1" min="0" max="100" required>
+    <button type="submit">Predict Performance</button>
+  </form>
+  <div id="above10"></div>
+  <div id="below10"></div>
+</div>
 
-            <label for="transmission">Transmission:</label>
-            <select id="transmission" name="transmission" required>
-                <option value="Manual">Manual</option>
-                <option value="Automatic">Automatic</option>
-            </select>
+<script>
+document.getElementById("predictionForm").addEventListener("submit", function(event) { //event lister tells it to do predict survival
+  event.preventDefault(); // Prevent form submission
+  predictSurvival(); // Call function to predict survival
+});
 
-            <label for="owner">Owner:</label>
-            <select id="owner" name="owner" required>
-                <option value="First Owner">First Owner</option>
-                <option value="Second Owner">Second Owner</option>
-                <option value="Third Owner">Third Owner</option>
-                <option value="Fourth Owner">Fourth Owner</option>
-                <option value="Above Fourth Owner">Above Fourth Owner</option>
-            </select>
+function predictSurvival() {
+  // Get input values from the form
+  var formData = {
+    age: parseFloat(document.getElementById("age").value),
+    FG: parseInt(document.getElementById("FG").value),
+    FGpercent: parseInt(document.getElementById("FG%").value),
+    threeP: parseFloat(document.getElementById("3P").value),
+    threePpercent: document.getElementById("3P%").value
+    FrT: parseFloat(document.getElementById("FT").value),
+    FrTpercent: parseFloat(document.getElementById("FT%").value),
+  };
+  const apiUrl = "http://127.0.0.1:8086/api/nba/predict"
+  // Send input data to server for prediction
+  fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      'Access-Control-Allow-Origin': 'http://127.0.0.1:4100',
+      'Access-Control-Allow-Credentials': 'true'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Display prediction result
+    document.getElementById("above10").innerHTML = "Chance of scoring 10+ PPG: " + (100*data.above10).toFixed(2) + "%";
+    document.getElementById("below10").innerHTML = "Chance of scoring less than 10 PPG: " + (100*data.below10).toFixed(2) + "%";
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    document.getElementById("above10").innerHTML = "An error occurred. Please try again.";
+  });
+}
+</script>
 
-            <button type="submit">Predict Price</button>
-        </form>
-        <div id="prediction-result">
-            <h2>Estimated Price:</h2>
-            <p id="predicted-price"></p>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2024 Used Car Price Predictor</p>
-    </footer>
-    <script src="app.js"></script>
 </body>
 </html>
-
-<style>
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body, html {
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
-    color: #ffffff;
-}
-
-header {
-    background-color: #1F1F1F;
-    padding: 20px 0;
-    text-align: center;
-    width: 100%;
-    box-shadow: 0 2px 10px 0 rgba(255, 255, 255, 0.1);
-}
-
-h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: #0d6efd;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100% - 60px);
-    padding: 40px 0;
-}
-
-form {
-    margin: 30px 0;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #252525;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-input, select, button {
-    width: 300px;
-    padding: 15px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-}
-
-input[type='number'], select {
-    background-color: #333;
-    color: #ddd;
-}
-
-input[type='number']:focus, select:focus {
-    outline: none;
-    border: 2px solid #0d6efd;
-}
-
-button {
-    background-color: #0d6efd;
-    color: #fff;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.5);
-}
-
-button:active {
-    transform: translateY(-1px);
-}
-
-#prediction-result {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #333;
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px 0 rgba(255, 255, 255, 0.1);
-}
-
-#predicted-price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #4CAF50;
-}
-
-footer {
-    background-color: #1F1F1F;
-    color: #8c8c8c;
-    text-align: center;
-    padding: 10px 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-footer p {
-    margin: 0;
-    font-size: 1rem;
-}

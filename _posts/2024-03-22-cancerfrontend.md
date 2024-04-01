@@ -7,7 +7,6 @@ description: Predict the likelihood of breast cancer
 type: hacks
 courses: { compsci: {week: 26} }
 ---
-
 <body>
     <h1>Breast Cancer Prediction Form</h1>
     <form id="predictionForm">
@@ -55,7 +54,8 @@ courses: { compsci: {week: 26} }
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById("result").innerHTML = "Predicted Probability of Malignancy: " + (data.malignantProbability).toFixed(2);
+        document.getElementById("benign").innerHTML = "Chance benign: " + (100*data.benign_chance).toFixed(2) + "%";
+        document.getElementById("malignant").innerHTML = "Chance malignant " + (100*data.malignant_chance).toFixed(2) + "%";
         })
         .catch(error => {
             console.error("Error:", error);

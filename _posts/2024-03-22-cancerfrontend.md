@@ -26,7 +26,8 @@ courses: { compsci: {week: 26} }
         <input type="number" id="mitoses" name="mitoses" value="1"><br>
         <button type="submit">Predict</button>
     </form>
-    <div id="result"></div>
+    <div id="benign"></div>
+    <div id="malignant"></div>
     <script>
     document.getElementById("predictionForm").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -54,8 +55,8 @@ courses: { compsci: {week: 26} }
         })
         .then(response => response.json())
         .then(data => {
-        document.getElementById("benign").innerHTML = "Chance benign: " + (100*data.benign_chance).toFixed(2) + "%";
-        document.getElementById("malignant").innerHTML = "Chance malignant " + (100*data.malignant_chance).toFixed(2) + "%";
+        document.getElementById("benign").innerHTML = "Chance benign: " + (100*data.benign).toFixed(2) + "%";
+        document.getElementById("malignant").innerHTML = "Chance malignant " + (100*data.malignant).toFixed(2) + "%";
         })
         .catch(error => {
             console.error("Error:", error);
